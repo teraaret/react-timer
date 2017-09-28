@@ -1,0 +1,32 @@
+body {
+    background-color: #111;
+    margin: 0;
+    padding: 0;
+}
+
+.page {
+    width: 960px;
+    margin: 0 auto;
+    background-color: #eee;
+    padding: 20px;
+}
+
+.title {
+    text-align: center;
+    font-family: 'Russo One', sans-serif;
+    font-size: 40px;
+    font-weight: 500;
+}
+
+.header, .paragraph {
+    font-family: verdana;
+}
+
+.timer {
+/*    text-align: center;*/
+/*    margin-left: 600px;*/
+    font-family: 'Russo One', sans-serif;
+    font-size: 60px;
+    color: orangered;
+    padding-left: 360px;
+}
