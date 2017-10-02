@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './style.css';
+//import './test.less';
 import Footer from './Footer';
 
 // ***
 
 var data = {
-    title: "React App",
+    title: "React JS",
     users: [
         {id: 1, name: 'John'},
         {id: 2, name: 'Kaeli'},
@@ -15,11 +16,13 @@ var data = {
 }
 
 var components = {
-    title: <h1 className="title">{ data.title }</h1>,
+    title: <h1 className="title">
+    <img className="logo" source="./img/logo.png" alt="hz"/>  
+    { data.title }</h1>,
     header: <h1 className="header">The header</h1>,
     paragraph: <p className="paragraph">"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores minus saepe dicta dolorum rem veniam nostrum nulla dolorem mollitia repellendus sit corporis id illum est consequuntur aut perspiciatis, voluptates natus maxime, quaerat itaque architecto deserunt ab odio. Cupiditate, esse nobis"</p>,
     list: <ul>{data.users.map(user => <li key={user.id}>{user.name}</li>)}</ul>
-    }
+    };
 
 class Tumbler extends React.Component {
     constructor(props)
@@ -43,8 +46,10 @@ class Tumbler extends React.Component {
             <button onClick={this.onOff}>on off</button>
         </div>);  
     }
-}
-            
+};
+
+//
+                
 class Timer extends React.Component {
     constructor(props)
     {
@@ -61,15 +66,17 @@ class Timer extends React.Component {
     }
     
     componentDidMount() {
-        this.timerID = setInterval(() => this.increment(), 10);
+        this.timerID = setInterval(() => this.increment(), 50);
     }
     
     render()
     {
         const value = this.state.value;
-        return ( <p className="timer" id="timer">{ value }</p> )
+        return <p className="timer" id="timer">{ value }</p>;
     }
-}
+};
+
+//
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -105,7 +112,163 @@ class LoginForm extends React.Component {
         </form>
       );
     }
-  }
+};
+
+function Hero1 (props)
+{
+    return <h1>Hello, {props.name}</h1>;
+}
+
+class Hero2 extends React.Component {
+    render()
+    {
+        return <h1>Hello 2, {this.props.name}</h1>
+    }
+}
+
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+
+class Field extends React.Component
+{
+    constructor(props) 
+    {
+        super(props);
+        this.state = {tasks: ["Task 1"]};
+        
+        this.eachTask = this.eachTask.bind(this);
+        
+        this.addTask = this.addTask.bind(this);
+        this.updateText = this.updateText.bind(this);
+        this.deleteBlock = this.deleteBlock.bind(this);
+    }
+    
+    addTask(text)
+    {
+        var arr = this.state.tasks;
+        arr.push(text);
+        this.setState( {tasks: arr} );
+    }
+    
+    updateText(text, index)
+    {
+        var arr = this.state.tasks;
+        arr[index] = text;
+        this.setState( { tasks: arr } );
+    }
+    
+    deleteBlock(index)
+    {
+        var arr = this.state.tasks;
+        arr.splice(index,1);
+        this.setState( { tasks: arr } );
+    }
+    
+    eachTask(item, index)
+    {
+        return <div className="task-box" key={index}>
+            <p>#{index}</p>
+            <Task index={index} update={this.updateText} deleteBlock={this.deleteBlock}>
+            { item }
+            </Task>
+        </div>
+    }
+    
+    render()
+    {
+        return <div className="field">
+            <button onClick={ this.addTask.bind(null, 'New task') } className="btn btn-new">Add task</button>
+            { this.state.tasks.map(this.eachTask) }
+        </div>
+    }
+}
+
+class Task extends React.Component
+{
+    constructor(props) 
+    {
+        super(props);
+        this.state = {edit: false};
+        
+        this.edit = this.edit.bind(this);
+        this.remove = this.remove.bind(this);
+        this.save = this.save.bind(this);
+    }
+    
+    edit()
+    {
+        this.setState( {edit: true } );
+    }
+    
+    save()
+    {
+//        var value = this.refs.newTxt.value;
+        this.props.update(this.refs.newTxt.value, this.props.index);
+        this.setState( {edit: false } );
+    }
+    
+    remove()
+    {
+        this.props.deleteBlock(this.props.index);
+    }
+    
+    render()
+    {
+        if (this.state.edit === false)
+        {
+            return <div>
+                <h3 className="task-text">{this.props.children}</h3>
+                <button onClick={this.edit} className="btn btn-light">Edit</button>
+                <button onClick={this.remove} className="btn btn-red">Delete</button>
+            </div>
+        }
+        else if (this.state.edit === true)
+        {
+            return <div>
+                <div className="task-box">
+                    <textarea ref="newTxt" defaultValue={this.props.children}></textarea>
+                    <br/>
+                    <button onClick={this.save} className="btn btn-light">Save</button>
+                </div>
+            </div>
+        }
+    }
+}
+
+class Check extends React.Component 
+{
+    constructor(props) 
+    {
+        super(props);
+        this.state = {checked: true};
+        
+        this.handleCheck = this.handleCheck.bind(this);
+    }
+    
+    getInitialState()
+    {
+        return {checked: true}
+    }
+    
+    handleCheck()
+    {
+//        let status = this.state.checked;
+//        console.log(status);
+//        console.log('hz');
+        this.setState( {checked: !this.state.checked} );
+    }
+    
+    render()
+    {
+        var message;
+        if (this.state.checked) { message = "Selected" }
+        else { message = "Not selected" };
+        return <div>
+            <label><input type="checkbox" onChange={this.handleCheck} defaultChecked={this.state.checked}/>Checkbox {message}</label>
+        </div>
+    }
+}
 
 ////////////////////
             
@@ -116,11 +279,7 @@ class LoginForm extends React.Component {
             { components.title }
             <hr/>
             { components.header }
-            { components.paragraph }
-            { components.list }
-            < Timer />
-            < Tumbler />
-            <LoginForm />
+            <Field />
             <Footer />
         </div>,
         document.getElementById('root')
