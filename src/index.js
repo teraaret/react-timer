@@ -218,8 +218,7 @@ class Task extends React.Component
         if (this.state.edit === false)
         {
             return <div>
-                <h3 className="task-text">{this.props.children}</h3>
-                <button onClick={this.edit} className="btn btn-light">Edit</button>
+                <h3 className="task-text" onClick={this.edit}>{this.props.children}</h3>
                 <button onClick={this.remove} className="btn btn-red">Delete</button>
             </div>
         }

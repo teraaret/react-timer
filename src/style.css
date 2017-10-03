@@ -72,5 +72,11 @@ body {
 }
 .field .task-box h3 {
   padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 10px;
   margin-bottom: 20px;
+  cursor: pointer;
+}
+.field .task-box h3:hover {
+  background-color: #ddd;
 }
