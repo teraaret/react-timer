@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './style.css';
 //import './test.less';
 import Footer from './Footer';
+import Logo from './img/logo.png';
 
 // ***
 
@@ -16,9 +17,10 @@ var data = {
 }
 
 var components = {
-    title: <h1 className="title">
-    <img className="logo" source="./img/logo.png" alt="hz"/>  
-    { data.title }</h1>,
+    title: <div className="titleBox">
+            <img className="logo" src={Logo} alt="hz"/>  
+            <h1 className="title">{ data.title }</h1>
+        </div>,
     header: <h1 className="header">The header</h1>,
     paragraph: <p className="paragraph">"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores minus saepe dicta dolorum rem veniam nostrum nulla dolorem mollitia repellendus sit corporis id illum est consequuntur aut perspiciatis, voluptates natus maxime, quaerat itaque architecto deserunt ab odio. Cupiditate, esse nobis"</p>,
     list: <ul>{data.users.map(user => <li key={user.id}>{user.name}</li>)}</ul>

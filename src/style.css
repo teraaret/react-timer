@@ -11,11 +11,17 @@ body {
   color: #444749;
   background-image: url(img/bg.jpg);
 }
-.title {
+.titleBox {
   text-align: center;
+}
+.titleBox .title {
   font-family: 'Russo One', sans-serif;
   font-size: 40px;
   font-weight: 500;
+  margin-top: 0;
+}
+.titleBox .logo {
+  width: 100px;
 }
 .header,
 .paragraph {
